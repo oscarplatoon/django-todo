@@ -1,0 +1,10 @@
+{% extends 'todos/base.html' %}
+
+{% block content %}
+    <h3>{{ todo.title }}</h3>
+
+    <p>{{ todo.desc }}</p>
+    <a href="{% url 'todos:show_todos' %}">Home</a>
+    <a href="{% url 'todos:edit_todo' id=todo.id%}">Edit</a>
+    <a href="{% url 'todos:delete_todo' id=todo.id%}">Delete</a>
+{% endblock %}

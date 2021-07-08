@@ -1,4 +1,3 @@
-from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from todos.models import Todo
 from django.forms import ModelForm
@@ -16,15 +15,22 @@ def get_todo(id):
 
 # Views
 def show_todos(request):
-    todos = Todo.objects.all()
-    context = {'todos': todos}
+    if request.user.is_authenticated:
+        todos = Todo.objects.filter(author=request.user)
+        context = {'todos': todos}
+    else:
+        context = {}
     return render(request, 'todos/show_todos.html', context)
 
 
 def show_todo(request, id):
-    todo = get_todo(id)
-    context = {'todo': todo}
-    return render(request, 'todos/show_todo.html', context)
+    if request.user.is_authenticated:
+        todo = get_todo(id)
+        if todo.author == request.user:
+            context = {'todo': todo}
+            return render(request, 'todos/show_todo.html', context)
+    # if user not logged in or todo doesn't belong to the user:
+    return redirect('todos:show_todos')
 
 
 def create_todo(request):
@@ -34,7 +40,9 @@ def create_todo(request):
         form = TodoForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            new_todo = form.save()
+            new_todo = form.save(commit=False)
+            new_todo.author = request.user
+            new_todo.save()
             return redirect('todos:show_todo', id=new_todo.id)
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -50,7 +58,9 @@ def edit_todo(request, id):
         form = TodoForm(request.POST, instance=todo)
 
         if form.is_valid():
-            updated_todo = form.save()
+            updated_todo = form.save(commit=False)
+            updated_todo.author = request.user
+            updated_todo.save()
             return redirect('todos:show_todo', id=updated_todo.id)
 
     else:

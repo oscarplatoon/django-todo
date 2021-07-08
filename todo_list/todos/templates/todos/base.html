@@ -10,7 +10,15 @@
 </head>
 <body>
     <h1>Your To-Do List</h1>
-    {% block content %}
-    {% endblock %}
+    {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}!</p>
+        <p><a href="{% url 'logout' %}">logout</a></p>
+        {% block content %}
+        {% endblock %}
+    {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
 </body>
 </html>

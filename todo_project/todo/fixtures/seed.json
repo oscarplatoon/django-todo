@@ -1,0 +1,27 @@
+[{
+    "model": "todo.Todo",
+    "pk": 1,
+    "fields": {
+      "title": "Wash the dishes",
+      "description": "Because they need cleaned."
+    }
+  },
+
+  {
+    "model": "todo.Todo",
+    "pk": 2,
+    "fields": {
+      "title": "Clean the Oven",
+      "description": "It's got some stuff inside it."
+    }
+  },
+
+  {
+    "model": "todo.Todo",
+    "pk": 3,
+    "fields": {
+      "title": "Clean the counters",
+      "description": "The kids spilled some dinner on it."
+    }
+  }
+]

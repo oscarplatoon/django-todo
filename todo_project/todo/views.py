@@ -1,11 +1,19 @@
 from django.shortcuts import render, redirect
+from .forms import TodoForm
+from .models import Todo
 
-# Create your views here.
+def get_todo(todo_id):
+    return Todo.objects.get(id=todo_id)
+
 def todo_list(request):
-    pass
+    todos_list = Todo.objects.all()
+    todo_data = {'todos': todos_list}
+    return render(request,'todo/todo_list.html', todo_data)
 
 def todo_view(request, todo_id):
-    pass
+    todo = get_todo(todo_id)
+    todo_data = {'todo':todo}
+    return(render(request, 'todo/todo_detail.html', todo_data))
 
 def todo_create(request):
     pass

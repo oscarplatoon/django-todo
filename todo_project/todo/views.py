@@ -18,12 +18,21 @@ def todo_view(request, todo_id):
 def todo_create(request):
     form = TodoForm(request.POST or None)
     if form.is_valid():
-        form.save()
-        return redirect('todo:todo_list')
+        todo = form.save()
+        return redirect('todo:todo_view', todo_id=todo.id)
     return render(request, 'todo/todo_form.html', {'form':form, 'new_or_edit': 'New'})
 
 def todo_update(request, todo_id):
-    pass
+    todo = get_todo(todo_id)
+    form = TodoForm(request.POST or None, instance = todo)
+    if form.is_valid():
+        form.save()
+        return(redirect('todo:todo_list'))
+    return render(request, 'todo/todo_form.html', {'form': form, 'new_or_edit': 'Edit'})
 
 def todo_delete(request, todo_id):
-    pass
+    todo=get_todo(todo_id)
+    if request.method=='POST':
+        todo.delete()
+        return(redirect('todo:todo_list'))
+    return render(request, 'todo/todo_confirm_delete.html', {'object':todo})

@@ -4,9 +4,12 @@
   {% for todo in todos %}
     <div class = 'todo-item text-light'>
       <h4>
-        <a href="{% url 'todo:todo_view' todo_id=todo.id %}" >
-          {{ todo.title }}
-        </a>
+          <tr> 
+            <td>{{ todo.title }}</td>
+            <td> <a href="{% url 'todo:todo_view' todo_id=todo.id %}"> View</a></td>
+            <td> <a href="{% url 'todo:todo_edit' todo_id=todo.id %}"> Edit</a></td>
+            <td> <a href="{% url 'todo:todo_delete' todo_id=todo.id %}"> delete</a></td> </td>
+          </tr>
       </h4> 
 
     </div>

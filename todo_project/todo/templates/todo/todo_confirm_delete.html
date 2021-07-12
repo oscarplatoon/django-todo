@@ -1,0 +1,13 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+
+<form method="post"> {% csrf_token %}
+  Todo Item for Deletion: "{{ object.title }}"
+  <br />
+  If you're sure you want to delete, submit below.
+  <br />
+  <input type = 'submit' value="Submit" />
+</form>
+
+{% endblock  %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block main-content %}
+<h1> Todos </h1>
+<ul>
+  {% for todo in all_todos %}
+  <li> 
+    <h2> {{ todo.title }} </h2>
+    <a href="{% url 'todos:todo_view' todo.id %}">View</a>
+    <span><a href="{% url 'todos:todo_edit' todo.id %}"> Edit </a></span>
+    <span><a href="{% url 'todos:todo_delete' todo.id %}"> Delete </a></span>
+  </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'todos:todo_new' %}">New</a>
+{% endblock %}

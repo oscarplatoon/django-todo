@@ -16,7 +16,11 @@ def todo_view(request, todo_id):
     return(render(request, 'todo/todo_detail.html', todo_data))
 
 def todo_create(request):
-    pass
+    form = TodoForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('todo:todo_list')
+    return render(request, 'todo/todo_form.html', {'form':form, 'new_or_edit': 'New'})
 
 def todo_update(request, todo_id):
     pass

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block main-content %}
+<h1>{{todo.title}}</h1>
+<p> Description: {{todo.description}}</p>
+<hr/>
+<a href='{% url "todos:todo_list" %}'>Back</a>
+{% endblock %}

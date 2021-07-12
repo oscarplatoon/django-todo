@@ -8,4 +8,7 @@
 <h4>
   Description: {{ todo.description }}
 </h4>
+
+<br>
+<a href="{% url 'todo:todo_edit' todo_id=todo.id %}"> Edit</a>
 {% endblock  %}

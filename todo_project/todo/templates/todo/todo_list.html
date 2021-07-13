@@ -2,14 +2,24 @@
 
 {% block content %}
   {% for todo in todos %}
-    <div class = 'todo-item text-light'>
+    <div class = 'todo-item text-light container'>
       <h4>
-          <tr> 
-            <td>{{ todo.title }}</td>
-            <td> <a href="{% url 'todo:todo_view' todo_id=todo.id %}"> View</a></td>
-            <td> <a href="{% url 'todo:todo_edit' todo_id=todo.id %}"> Edit</a></td>
-            <td> <a href="{% url 'todo:todo_delete' todo_id=todo.id %}"> delete</a></td> </td>
-          </tr>
+            <div class="row justify-content-center"> 
+              <div class='col-md'>
+              {{ todo.title }}
+
+            </div>
+            <div class="col-md"> 
+              <a class= "btn btn-primary" href="{% url 'todo:todo_view' todo_id=todo.id %}">
+                View
+              </a>
+              <a class= "btn btn-success" href="{% url 'todo:todo_edit' todo_id=todo.id %}">
+                Edit
+              </a>
+              <a class= "btn btn-danger" href="{% url 'todo:todo_delete' todo_id=todo.id %}"> 
+                delete
+              </a>
+            </div> 
       </h4> 
 
     </div>
